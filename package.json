@@ -1,0 +1,32 @@
+{
+  "name": "micro-goodreads",
+  "version": "0.0.1",
+  "description": "A microservice to transform a Goodreads XML feed to JSON",
+  "keywords": "JavaScript, micro, microservice, goodreads",
+  "author": {
+    "name": "Jamie McHale",
+    "url": "https://www.jamiemchale.com/"
+  },
+  "homepage": "https://github.com/jamiemchale/micro-goodreads",
+  "bugs": "https://github.com/jamiemchale/micro-goodreads/issues",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jamiemchale/micro-goodreads.git"
+  },
+  "main": "index.js",
+  "scripts": {
+    "start": "micro",
+    "dev": "micro-dev"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "cacheman": "^2.2.1",
+    "dotenv": "^4.0.0",
+    "micro": "^8.0.1",
+    "node-fetch": "^1.7.1",
+    "xml2js-es6-promise": "^1.1.1"
+  },
+  "devDependencies": {
+    "micro-dev": "^1.1.0"
+  }
+}
