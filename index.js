@@ -18,7 +18,7 @@ const getGoodreads = async () => {
       link: r.book[0].link[0],
       image: r.book[0].image_url[0],
       authors: r.book[0].authors.map(a => a.author)[0].map(a => a.name)[0].join(', '),
-      read_at: r.read_at[0],
+      read_at: r.read_at[0] || r.date_added[0],
     }))
 }
 
@@ -34,6 +34,10 @@ module.exports = async (req, res) => {
   }
 
   const books = await getGoodreads()
+  const cachedBooks = await cache.get(`goodreads_${process.env.GOODREADS_USER_ID}`)
+  const cachedBooksIds = cachedBooks ? cachedBooks.map(b => b.id) : []
   await cache.set(`goodreads_${process.env.GOODREADS_USER_ID}`, books)
-  return books
+
+  // Only return non-cached (i.e. new books) from a POST
+  return books.filter(b => !cachedBooksIds.includes(b.id))
 }
