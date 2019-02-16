@@ -20,10 +20,10 @@
   },
   "license": "MIT",
   "dependencies": {
-    "cacheman": "^2.2.1",
     "dotenv": "^4.0.0",
-    "micro": "^8.0.1",
+    "micro": "^8.0.4",
     "node-fetch": "^1.7.1",
+    "now-micro": "^0.3.0",
     "xml2js-es6-promise": "^1.1.1"
   },
   "devDependencies": {

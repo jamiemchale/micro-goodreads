@@ -3,8 +3,6 @@ require('dotenv').config()
 const fetch = require('node-fetch')
 const xml2js = require('xml2js-es6-promise')
 const { json } = require('micro')
-const Cacheman = require('cacheman')
-const cache = new Cacheman('goodreads', { ttl: 604800 })
 
 const getGoodreads = async () => {
   const result = await fetch(`https://www.goodreads.com/review/list?per_page=200&sort=date_read&v=2&id=${process.env.GOODREADS_USER_ID}&shelf=read&key=${process.env.GOODREADS_API_KEY}`)
@@ -28,16 +26,6 @@ module.exports = async (req, res) => {
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST')
   res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept')
 
-  if (req.method  != 'POST') {
-    const cachedBooks = await cache.get(`goodreads_${process.env.GOODREADS_USER_ID}`)
-    if (cachedBooks) return cachedBooks
-  }
-
   const books = await getGoodreads()
-  const cachedBooks = await cache.get(`goodreads_${process.env.GOODREADS_USER_ID}`)
-  const cachedBooksIds = cachedBooks ? cachedBooks.map(b => b.id) : []
-  await cache.set(`goodreads_${process.env.GOODREADS_USER_ID}`, books)
-
-  // Only return non-cached (i.e. new books) from a POST
-  return books.filter(b => !cachedBooksIds.includes(b.id))
+  return books
 }

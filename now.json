@@ -3,8 +3,6 @@
     "GOODREADS_API_KEY": "@goodreads_api_key",
     "GOODREADS_USER_ID": "@goodreads_user_id"
   },
-  "builds": [
-    { "src": "*.js", "use": "@now/node" }
-  ],
+  "builds": [{ "src": "*.js", "use": "now-micro" }],
   "version": 2
 }
